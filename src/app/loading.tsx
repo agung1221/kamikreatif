@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Loading() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white text-blue-700">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white text-orange-700">
       {/* Logo Brand */}
       <Image
         src="/logo-kami-kreatif.png"
@@ -17,7 +17,7 @@ export default function Loading() {
 
       {/* Spinner SVG */}
       <svg
-        className="animate-spin h-10 w-10 text-blue-700"
+        className="animate-spin h-10 w-10 text-orange-700"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

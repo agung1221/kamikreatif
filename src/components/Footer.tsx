@@ -17,10 +17,10 @@ const SocialIcon = ({ href, children }: { href: string, children: React.ReactNod
 // --- Data untuk Footer ---
 const footerLinks = {
     layanan: [
-        { name: "Pembuatan Website", href: "/layanan#website" },
-        { name: "Digital Marketing", href: "/layanan#marketing" },
-        { name: "Social Media Management", href: "/layanan#social" },
-        { name: "Tools & Automasi", href: "/layanan#tools" },
+        { name: "Pembuatan Website", href: "/layanan/pembuatan-website" },
+        { name: "Digital Marketing", href: "/layanan/digital-marketing" },
+        { name: "Social Media Management", href: "/layanan/social-media" },
+        { name: "Tools & Automasi", href: "/layanan/tools-automasi" },
     ],
     perusahaan: [
         { name: "Tentang Kami", href: "/tentang" },

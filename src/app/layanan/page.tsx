@@ -1,6 +1,11 @@
 // src/app/layanan/page.tsx
 import type { Metadata } from 'next';
-import Development from "@/components/Development";
+import LayananHero from "@/components/layanan/LayananHero";
+import LayananWhy from "@/components/layanan/LayananWhy";
+import LayananPilihan from "@/components/layanan/LayananPilihan";
+import TestimoniSection from "@/components/TestimoniSection";
+import LayananCTA from "@/components/layanan/LayananCTA";
+import FaqSection from "@/components/FaqSection";
 
 // Metadata spesifik yang dioptimalkan untuk Halaman Layanan
 export const metadata: Metadata = {
@@ -15,7 +20,12 @@ export const metadata: Metadata = {
 export default function LayananPage() {
   return (
     <main className="bg-white text-gray-800">
-      <Development />
+      <LayananHero />
+      <LayananWhy />
+      <LayananPilihan />
+      <TestimoniSection />
+      <LayananCTA />
+      <FaqSection />
     </main>
   );
 }

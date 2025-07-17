@@ -63,7 +63,7 @@ const ConsultationModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneNumber = '6281234567890';
+    const phoneNumber = '6281287718683';
     const message = `Hallo admin kamikreatif.com, perkenalkan saya ${formData.name} dari perusahaan ${formData.company} ingin berkonsultasi untuk ${formData.service}.`;
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
     onClose();

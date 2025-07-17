@@ -89,8 +89,8 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">Kontak</h3>
             <ul className="space-y-3">
-              <li><a href="mailto:halo@kamikreatif.com" className="hover:text-orange-500 transition-colors duration-300">halo@kamikreatif.com</a></li>
-              <li><a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors duration-300">(+62) 812-3456-7890</a></li>
+              <li><a href="mailto:halo@kamikreatif.com" className="hover:text-orange-500 transition-colors duration-300">kamikreatif.info@gmail.com</a></li>
+              <li><a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors duration-300">(+62) 812-8771-8683</a></li>
               <li className="text-slate-400">Jakarta Selatan, Indonesia</li>
             </ul>
           </div>

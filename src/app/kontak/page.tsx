@@ -1,6 +1,6 @@
 // src/app/kontak/page.tsx
 import type { Metadata } from 'next';
-import Development from "@/components/Development";
+import KontakSection from "@/components/KontakSection";
 
 // Metadata spesifik yang dioptimalkan untuk Halaman Kontak
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function KontakPage() {
   return (
     <main className="bg-white text-gray-800">
-      <Development />
+      <KontakSection />
     </main>
   );
 }

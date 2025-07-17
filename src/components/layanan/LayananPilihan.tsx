@@ -4,19 +4,28 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-// --- Helper Hook untuk deteksi saat elemen masuk ke viewport ---
-const useInView = (options: IntersectionObserverInit = {}) => {
+// --- Tipe kustom untuk opsi hook ---
+interface UseInViewOptions extends IntersectionObserverInit {
+  triggerOnce?: boolean;
+}
+
+// --- Helper Hook untuk deteksi saat elemen masuk ke viewport (diperbaiki) ---
+const useInView = (options: UseInViewOptions = {}) => {
+    const { triggerOnce = true, ...observerOptions } = options;
     const ref = useRef<HTMLDivElement>(null);
     const [isInView, setIsInView] = useState(false);
     useEffect(() => {
         const element = ref.current;
         if (!element) return;
         const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) setIsInView(true);
-        }, options);
+            if (entry.isIntersecting) {
+                setIsInView(true);
+                if (triggerOnce) observer.unobserve(element);
+            }
+        }, observerOptions);
         observer.observe(element);
         return () => { if (element) observer.unobserve(element); };
-    }, [options]);
+    }, [triggerOnce, observerOptions]);
     return [ref, isInView] as const;
 };
 
@@ -55,46 +64,17 @@ const serviceData = [
     }
 ];
 
-// --- Komponen Service Item ---
-const ServiceItem = ({ service, index }: { service: typeof serviceData[0], index: number }) => {
-    const [ref, isInView] = useInView({ threshold: 0.3 });
-    const isEven = index % 2 === 0;
-
-    return (
-        <div ref={ref} className="grid md:grid-cols-2 gap-12 items-center">
-            <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'} ${isEven ? 'md:order-1' : 'md:order-2'}`}>
-                <div className="relative rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                    <Image
-                        src={service.imageUrl}
-                        alt={service.title}
-                        width={600}
-                        height={450}
-                        className="w-full h-auto object-cover"
-                        // Optimasi: Memberi tahu browser ukuran gambar di berbagai viewport
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        // Optimasi: Memprioritaskan loading gambar pertama (LCP)
-                        priority={index === 0}
-                    />
-                </div>
-            </div>
-            <div className={`transition-all duration-700 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'} ${isEven ? 'md:order-2' : 'md:order-1'}`}>
-                <h3 className="text-3xl font-extrabold text-slate-900 mb-4">{service.title}</h3>
-                <p className="text-lg text-slate-600 mb-6">{service.description}</p>
-                <Link href={service.link} className="group inline-flex items-center text-orange-600 font-semibold transition-colors duration-300 hover:text-orange-700">
-                    Detail Layanan
-                    <ArrowRightIcon />
-                </Link>
-            </div>
-        </div>
-    );
-};
-
 // --- Komponen Utama ---
 export default function LayananPilihan() {
+    const [ref, isInView] = useInView({ threshold: 0.2 });
+    const [activeTab, setActiveTab] = useState(0);
+
+    // Variabel 'activeService' dihapus karena tidak digunakan.
+
     return (
-        <section id="detail-layanan" className="bg-white py-20 md:py-28">
+        <section id="detail-layanan" ref={ref} className="bg-white py-20 md:py-28">
             <div className="container mx-auto px-6">
-                <div className="text-center mb-20">
+                <div className={`text-center mb-16 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'}`}>
                     <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
                         Pilihan Layanan Kami
                     </h2>
@@ -103,10 +83,50 @@ export default function LayananPilihan() {
                     </p>
                 </div>
 
-                <div className="space-y-24">
-                    {serviceData.map((service, index) => (
-                        <ServiceItem key={index} service={service} index={index} />
-                    ))}
+                <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+                    {/* Kolom Kiri: Daftar Tab Layanan */}
+                    <div className="lg:col-span-1">
+                        <div className="space-y-2">
+                            {serviceData.map((service, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setActiveTab(index)}
+                                    className={`w-full text-left p-4 rounded-lg transition-all duration-300 ${activeTab === index ? 'bg-orange-500 text-white shadow-lg' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'}`}
+                                >
+                                    <span className="font-bold text-lg">{service.title}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Kolom Kanan: Konten Tab Aktif */}
+                    <div className="lg:col-span-2">
+                        <div className="relative">
+                            {serviceData.map((service, index) => (
+                                <div
+                                    key={index}
+                                    className={`transition-all duration-500 ease-in-out ${activeTab === index ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'}`}
+                                >
+                                    <div className="relative aspect-video rounded-xl shadow-2xl overflow-hidden mb-6">
+                                        <Image
+                                            src={service.imageUrl}
+                                            alt={service.title}
+                                            layout="fill"
+                                            objectFit="cover"
+                                            priority={index <= 1} // Prioritaskan gambar awal
+                                            sizes="(max-width: 1024px) 100vw, 66vw"
+                                        />
+                                    </div>
+                                    <h3 className="text-3xl font-extrabold text-slate-900 mb-4">{service.title}</h3>
+                                    <p className="text-lg text-slate-600 mb-6">{service.description}</p>
+                                    <Link href={service.link} className="group inline-flex items-center text-orange-600 font-semibold transition-colors duration-300 hover:text-orange-700">
+                                        Pelajari Lebih Lanjut
+                                        <ArrowRightIcon />
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

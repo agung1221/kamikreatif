@@ -92,9 +92,9 @@ const ConsultationModal = ({ isOpen, onClose, selectedPlan }: { isOpen: boolean,
 
 // --- Data Paket Harga ---
 const pricingPackages: PricingPackage[] = [
-    { name: "Landing Page", price: "1.299.000", features: [{ text: "Desain Custom"}, { text: "Mobile Friendly"}, { text: "Form Leads"}, { text: "SEO Basic", tooltip: "Optimasi dasar agar website Anda mudah ditemukan di Google."}], isPopular: false, checkoutUrl: "/checkout/landing-page" },
-    { name: "Company Profile", price: "2.499.000", features: [{ text: "Hingga 5 Halaman"}, { text: "SEO Optimized"}, { text: "Google Maps"}, { text: "Chat WA Integration"}], isPopular: false, checkoutUrl: "/checkout/company-profile" },
-    { name: "E-Commerce", price: "5.000.000", features: [{ text: "Produk & Kategori Tak Terbatas"}, { text: "Payment Gateway", tooltip: "Integrasi dengan Midtrans, Xendit, atau penyedia lain."}, { text: "Auto-Response Chat"}], isPopular: true, checkoutUrl: "/checkout/e-commerce" },
+    { name: "Landing Page", price: "1.299.000", features: [{ text: "Desain Custom"}, { text: "Mobile Friendly"}, { text: "Form Leads"}, { text: "SEO Basic", tooltip: "Optimasi dasar agar website Anda mudah ditemukan di Google."}], isPopular: false, checkoutUrl: "https://cart.kamikreatif.com/landing-page" },
+    { name: "Company Profile", price: "2.499.000", features: [{ text: "Hingga 5 Halaman"}, { text: "SEO Optimized"}, { text: "Google Maps"}, { text: "Chat WA Integration"}], isPopular: false, checkoutUrl: "https://cart.kamikreatif.com/company-profile" },
+    { name: "E-Commerce", price: "5.000.000", features: [{ text: "Produk & Kategori Tak Terbatas"}, { text: "Payment Gateway", tooltip: "Integrasi dengan Midtrans, Xendit, atau penyedia lain."}, { text: "Auto-Response Chat"}], isPopular: true, checkoutUrl: "https://cart.kamikreatif.com/e-commerce" },
     { name: "Custom Website", price: "Hubungi Kami", features: [{ text: "Sistem Web Apps"}, { text: "Integrasi API"}, { text: "Fitur Sesuai Kebutuhan"}], isPopular: false, checkoutUrl: null }
 ];
 

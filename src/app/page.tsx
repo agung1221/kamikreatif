@@ -5,7 +5,6 @@ import Services from "@/components/Services";
 import AboutSection from "@/components/AboutSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import TestimoniSection from "@/components/TestimoniSection";
-import PaketlayananSection from "@/components/PaketlayananSection";
 import CTA from "@/components/CTA";
 import FaqSection from "@/components/FaqSection";
 
@@ -29,9 +28,8 @@ export default function Home() {
       <Services />
       <PortfolioSection />
       <TestimoniSection />
-      <PaketlayananSection />
-      <FaqSection />
       <CTA />
+      <FaqSection />
     </main>
   );
 }

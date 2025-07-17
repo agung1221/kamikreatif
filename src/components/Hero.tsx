@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -37,13 +37,13 @@ const ConsultationModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneNumber = '6281287718683';
+    const phoneNumber = '6281234567890';
     const message = `Hallo admin kamikreatif.com, perkenalkan saya ${formData.name} dari perusahaan ${formData.company} ingin berkonsultasi untuk ${formData.service}.`;
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
     onClose();
   };
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-[100]" onClick={onClose}>
+    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-[100]" onClick={onClose}>
       <div className="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md m-4 relative" onClick={(e) => e.stopPropagation()}>
         <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-800"><svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" /></svg></button>
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Formulir Konsultasi</h2>
@@ -62,11 +62,18 @@ export default function Hero() {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [playVideo, setPlayVideo] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsMounted(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (playVideo && videoRef.current) {
+        videoRef.current.play();
+    }
+  }, [playVideo]);
 
   const clientLogos = [
     { src: "/klien-1.png", alt: "Logo Klien A" },
@@ -128,11 +135,23 @@ export default function Hero() {
             <div className={`relative mt-12 lg:mt-0 transition-all duration-1000 delay-500 ${isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
               <div className="aspect-video rounded-xl shadow-2xl overflow-hidden ring-1 ring-black/5 bg-slate-900">
                 {playVideo ? (
-                  <iframe className="w-full h-full" src="https://www.youtube.com/embed/QKfCRouiWV4?autoplay=1&mute=0&loop=1&playlist=QKfCRouiWV4&controls=1&showinfo=0&modestbranding=1" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                  <video
+                    ref={videoRef}
+                    className="w-full h-full object-cover"
+                    src="/Introkk.mp4"
+                    title="Intro Kami Kreatif"
+                    controls
+                    loop
+                    muted
+                    playsInline
+                  >
+                    Browser Anda tidak mendukung tag video.
+                  </video>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center cursor-pointer relative" onClick={() => setPlayVideo(true)}>
-                    <Image src="https://img.youtube.com/vi/QKfCRouiWV4/maxresdefault.jpg" alt="Video Thumbnail" layout="fill" objectFit="cover" priority />
-                    <div className="absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 hover:bg-opacity-20"></div>
+                    {/* Ganti dengan path thumbnail video Anda */}
+                    <Image src="/thumbnail-video.jpg" alt="Video Thumbnail" layout="fill" objectFit="cover" priority />
+                    <div className="absolute inset-0 transition-opacity duration-300 hover:bg-opacity-20"></div>
                     <div className="absolute">
                         <div className="bg-black/30 p-4 rounded-full backdrop-blur-sm transition-transform duration-300 hover:scale-110">
                             <PlayIcon />

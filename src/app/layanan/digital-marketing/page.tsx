@@ -1,6 +1,13 @@
 // src/app/layanan/digital-marketing/page.tsx
 import type { Metadata } from 'next';
-import Development from "@/components/Development";
+import DmHero from "@/components/layanan/digital-marketing/DmHero";
+import DmProblem from '@/components/layanan/digital-marketing/DmProblem';
+import DmSolusi from '@/components/layanan/digital-marketing/DmSolusi';
+import DmWhyUs from '@/components/layanan/digital-marketing/DmWhyUs';
+import DmHarga from '@/components/layanan/digital-marketing/DmHarga';
+import TestimonialSection from '@/components/TestimoniSection';
+import DmCTA from '@/components/layanan/digital-marketing/DmCTA';
+import DmFaq from '@/components/layanan/digital-marketing/DmFaq';
 
 // Metadata spesifik yang dioptimalkan untuk Halaman Digital Marketing
 export const metadata: Metadata = {
@@ -15,8 +22,14 @@ export const metadata: Metadata = {
 export default function DigitalMarketingPage() {
   return (
     <main className="bg-white text-gray-800">
-      <Development />
-      {/* Komponen lain untuk halaman ini bisa ditambahkan di sini */}
+      <DmHero />
+      <DmProblem />
+      <DmSolusi />
+      <DmWhyUs />
+      <DmHarga />
+      <TestimonialSection />
+      <DmCTA />
+      <DmFaq />
     </main>
   );
 }
